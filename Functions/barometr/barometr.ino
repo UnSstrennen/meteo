@@ -17,7 +17,10 @@ void loop(void) {
   dps.getTemperature(&Temperature);
  
   Serial.print("Pressure(mm Hg):"); 
-  Serial.print(Pressure/133.3);      //Выводим давление в мм.рт ст
+  float pressure_mm_hg = Pressure / 133.3;
+  float rounded_pressure = round(pressure_mm_hg * 10);
+  rounded_pressure /= 10;
+  Serial.print(rounded_pressure);      //Выводим давление в мм.рт ст
   Serial.print("Temp:"); 
   Serial.println(Temperature*0.1);   // Температуру в градусах Цельсия
   delay(2000); 
