@@ -24,7 +24,7 @@ void loop(void) {
   {
   online = !online;
   lcd.setBacklight(online);
-  delay(10);
+  delay(50);
   }
   dps.getPressure(&Pressure);
   float pressure_mm_hg = Pressure / 133.3;
