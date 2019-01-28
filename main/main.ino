@@ -7,15 +7,25 @@ iarduino_RTC time(RTC_DS1302, 6, 7, 8);
 AM2320 th;
 BMP085 dps = BMP085();
 long Temperature = 0, Pressure = 0;
+bool online = 1;
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 void setup(void) {
   Wire.begin();
+  pinMode(3, INPUT); 
   dps.init();
   lcd.init();
   lcd.backlight();
+  lcd.display();
   time.begin();
 }
 void loop(void) {
+  boolean knopkastate = digitalRead(3);
+  if (knopkastate == 1)
+  {
+  online = !online;
+  lcd.setBacklight(online);
+  delay(10);
+  }
   dps.getPressure(&Pressure);
   float pressure_mm_hg = Pressure / 133.3;
   float rounded_pressure = round(pressure_mm_hg * 10);
